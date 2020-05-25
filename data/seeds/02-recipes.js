@@ -6,7 +6,8 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex('recipes').insert([
         { recipe_name: 'Beef Teriyaki'},
-        { recipe_name: 'Pizza'}
+        { recipe_name: 'Pizza'},
+        { recipe_name: 'Steak Dinner' }
       ]);
     });
 };
