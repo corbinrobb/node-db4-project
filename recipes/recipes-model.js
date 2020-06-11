@@ -4,11 +4,21 @@ module.exports = {
   getRecipes,
   getShoppingList,
   getInstructions,
-  getRecipesByIngredient
+  getRecipesByIngredient,
+  getRecipeDetailed
 }
 
 function getRecipes() {
   return db('recipes');
+}
+
+async function getRecipeDetailed(id) {
+  const recipe = await db('recipes').where({ id });
+  const list = await getShoppingList(id);
+  const instructions = await getInstructions(id);
+  return {...recipe[0], ingredients: [...list], instructions: instructions.map(inst => {
+    return { step_number: inst.step_number, description: inst.description }
+  })};
 }
 
 function getShoppingList(recipe_id) {
